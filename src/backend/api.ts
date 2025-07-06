@@ -37,6 +37,21 @@ export const router = t.router({
 
 			return { message: `Deleted person with ID: ${personId}` };
 		}),
+	triggerCreatePerson: t.procedure
+		.input(z.object({ name: z.string(), countryId: z.number() }))
+		.mutation(async ({ input }) => {
+			const { name, countryId } = input;
+			const prismaClient = getPrismaClient();
+
+			const person = await prismaClient.person.create({
+				data: {
+					name,
+					countryId,
+				},
+			});
+
+			return person;
+		}),
 	greeting: t.procedure.input(z.object({ name: z.string() })).query((req) => {
 		const { input } = req;
 
