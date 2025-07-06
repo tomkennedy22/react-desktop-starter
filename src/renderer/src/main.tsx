@@ -1,6 +1,7 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { ApiProvider } from "./ApiProvider";
 import { DefaultCatchBoundary } from "./components/DefaultCatchBoundary";
 import { NotFound } from "./components/NotFound";
 import { routeTree } from "./routeTree.gen";
@@ -19,11 +20,13 @@ declare module "@tanstack/react-router" {
 }
 
 const rootElement = document.getElementById("root");
-if (rootElement && !(rootElement?.innerHTML)) {
+if (rootElement && !rootElement?.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<StrictMode>
-			<RouterProvider router={router} />
+			<ApiProvider>
+				<RouterProvider router={router} />
+			</ApiProvider>
 		</StrictMode>,
 	);
 }

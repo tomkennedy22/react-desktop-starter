@@ -1,10 +1,11 @@
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient } from "@tanstack/react-query";
 import { createTRPCClient } from "@trpc/react-query";
-import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
-import type { AppRouter } from '../../backend/api';
-import { createTRPCContext } from "@trpc/tanstack-react-query";
-import { ipcLink } from 'electron-trpc-experimental/renderer';
-
+import {
+    createTRPCContext,
+    createTRPCOptionsProxy,
+} from "@trpc/tanstack-react-query";
+import { ipcLink } from "electron-trpc-experimental/renderer";
+import type { AppRouter } from "../../backend/api";
 
 export const queryClient = new QueryClient();
 export const trpcClient = createTRPCClient<AppRouter>({
@@ -16,5 +17,8 @@ export const trpc = createTRPCOptionsProxy<AppRouter>({
     queryClient,
 });
 
-
-export const { TRPCProvider, useTRPC: useApi, useTRPCClient } = createTRPCContext<AppRouter>();
+export const {
+    TRPCProvider,
+    useTRPC: useApi,
+    useTRPCClient,
+} = createTRPCContext<AppRouter>();

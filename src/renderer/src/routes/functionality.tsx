@@ -1,5 +1,6 @@
 import {
 	Button,
+	Divider,
 	Modal,
 	ModalBody,
 	ModalContent,
@@ -9,6 +10,7 @@ import {
 } from "@heroui/react";
 import type { ApiReturnTypes } from "@renderer/ApiProvider";
 import { useApi } from "@renderer/api";
+import { useStore } from "@renderer/state";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -21,6 +23,7 @@ export const Route = createFileRoute("/functionality")({
 
 function About() {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
+	const { count, inc } = useStore()
 
 	const [pongResponses, setPongResponses] = useState<PongResponse[]>([]);
 
@@ -29,11 +32,28 @@ function About() {
 
 	return (
 		<div className="p-2">
+			<p>
+				Please try pressing <code>F12</code> to open the devTool
+			</p>
+			<Divider className="my-2" />
+			<div>
+				Try this button to test Zustand storage
+				<Button
+					color="primary"
+					onPressEnd={() => {
+						console.log("increment button clicked");
+						inc();
+					}}
+				>
+					{`Count: ${count}`}
+				</Button>
+			</div>
+			<Divider className="my-2" />
 			<div className="action">
 				<Button
 					color="primary"
 					onPressEnd={async () => {
-						console.log("ping button clicked");
+						console.log("ping button  clicked");
 						const pingResult = await pingMutation.mutateAsync();
 						setPongResponses((prev) => [...prev, pingResult]);
 						console.log("ping result", pingResult);

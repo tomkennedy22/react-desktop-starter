@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
@@ -12,7 +12,8 @@
 			"src/main/*.ts",
 			"src/renderer/src/**/*.tsx",
 			"src/preload/*.d.ts",
-			"src/renderer/index.html"
+			"src/renderer/index.html",
+			"src/**"
 		]
 	},
 	"formatter": {
@@ -25,6 +26,18 @@
 			"recommended": true,
 			"correctness": {
 				"noUnusedVariables": "warn"
+			},
+			"style": {
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
 			}
 		}
 	},

@@ -14,7 +14,7 @@ generator json {
     provider = "prisma-json-types-generator"
 }
 
-enum CoachPosition {
+enum Sample {
     Val1
     Val2
     Val3
