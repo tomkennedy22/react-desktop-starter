@@ -26,10 +26,10 @@ import { useState } from "react";
 type PongResponse = ApiReturnTypes["triggerPing"];
 
 export const Route = createFileRoute("/functionality")({
-	component: About,
+	component: FunctionalityPage,
 });
 
-function About() {
+function FunctionalityPage() {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const { count, inc } = useStore();
 
