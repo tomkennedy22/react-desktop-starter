@@ -1,12 +1,6 @@
 import {
 	addToast,
 	Button,
-	Form,
-	Input,
-	Modal,
-	ModalBody,
-	ModalContent,
-	ModalHeader,
 	Table,
 	TableBody,
 	TableCell,
@@ -17,18 +11,12 @@ import {
 } from "@heroui/react";
 import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { useApi } from "@renderer/api";
-import { useForm } from "@tanstack/react-form";
+import { CreatePersonFormModal } from "@renderer/components/CreatePersonForm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import z from "zod";
 
 export const Route = createFileRoute("/countries/$countryIdStr")({
 	component: RouteComponent,
-});
-
-const personSchema = z.object({
-	name: z.string().min(1, "Name must not be empty"),
-	countryId: z.number().min(1, "Country ID must be valid"),
 });
 
 function RouteComponent() {
@@ -52,36 +40,6 @@ function RouteComponent() {
 	const triggerDeletePersonMutate = useMutation(
 		api.triggerDeletePerson.mutationOptions(),
 	);
-
-	const triggerCreatePersonMutate = useMutation(
-		api.triggerCreatePerson.mutationOptions(),
-	);
-
-	const form = useForm({
-		defaultValues: {
-			name: "",
-			countryId,
-		},
-		validators: {
-			onMount: personSchema,
-			onChange: personSchema,
-		},
-		onSubmit: async ({ value: person }) => {
-			console.log(person);
-
-			const isFormValid = await form.validateAsync("submit");
-
-			if (isFormValid) {
-				await triggerCreatePersonMutate.mutateAsync(person);
-				queryClient.invalidateQueries({
-					queryKey: api.getCountry.queryKey({ countryId }),
-				});
-				addToast({
-					title: `Created ${person.name}`,
-				});
-			}
-		},
-	});
 
 	if (isLoading) {
 		return <div>Loading...</div>;
@@ -142,74 +100,11 @@ function RouteComponent() {
 						)}
 				</TableBody>
 			</Table>
-			<Modal isOpen={isOpen} size="xs" onClose={onClose}>
-				<ModalContent>
-					{() => (
-						<>
-							<ModalHeader className="flex flex-col gap-1">
-								Add Person
-							</ModalHeader>
-							<ModalBody>
-								<Form
-									// validationErrors={form.validateAllFields()}
-									className="w-full max-w-xs"
-									onSubmit={() => form.handleSubmit()}
-								>
-									<form.Field
-										name="name"
-										validators={{ onChange: personSchema.shape.name }}
-									>
-										{(field) => (
-											<>
-												<Input
-													isRequired
-													isInvalid={
-														field.state.meta.isTouched &&
-														!field.state.meta.isValid
-													}
-													errorMessage={() => {
-														return field.state.meta.errors.map(
-															(error) => error?.message,
-														);
-													}}
-													onChange={(e) => {
-														field.handleChange(e.target.value);
-													}}
-													onBlur={field.handleBlur}
-													label="Name"
-													labelPlacement="outside"
-													placeholder="Enter person name"
-													type="text"
-													id={field.name}
-													name={field.name}
-													value={field.state.value}
-												/>
-											</>
-										)}
-									</form.Field>
-									<form.Subscribe
-										selector={(state) => {
-											console.log("Form state:", state);
-											return [state.canSubmit, state.isSubmitting];
-										}}
-									>
-										{([canSubmit, isSubmitting]) => (
-											<Button
-												key="create-person-submit-button"
-												type="submit"
-												variant="bordered"
-												isDisabled={!canSubmit}
-											>
-												{!isSubmitting ? "Submit" : "Submitting..."}
-											</Button>
-										)}
-									</form.Subscribe>
-								</Form>
-							</ModalBody>
-						</>
-					)}
-				</ModalContent>
-			</Modal>
+			<CreatePersonFormModal
+				isOpen={isOpen}
+				onClose={onClose}
+				countryId={countryId}
+			/>
 		</div>
 	);
 }
