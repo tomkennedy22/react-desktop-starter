@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as FunctionalityRouteImport } from './routes/functionality'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CountriesIndexRouteImport } from './routes/countries/index'
+import { Route as CountriesCountryIdStrRouteImport } from './routes/countries/$countryIdStr'
 
 const FunctionalityRoute = FunctionalityRouteImport.update({
   id: '/functionality',
@@ -22,31 +24,54 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CountriesIndexRoute = CountriesIndexRouteImport.update({
+  id: '/countries/',
+  path: '/countries/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CountriesCountryIdStrRoute = CountriesCountryIdStrRouteImport.update({
+  id: '/countries/$countryIdStr',
+  path: '/countries/$countryIdStr',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/functionality': typeof FunctionalityRoute
+  '/countries/$countryIdStr': typeof CountriesCountryIdStrRoute
+  '/countries': typeof CountriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/functionality': typeof FunctionalityRoute
+  '/countries/$countryIdStr': typeof CountriesCountryIdStrRoute
+  '/countries': typeof CountriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/functionality': typeof FunctionalityRoute
+  '/countries/$countryIdStr': typeof CountriesCountryIdStrRoute
+  '/countries/': typeof CountriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/functionality'
+  fullPaths: '/' | '/functionality' | '/countries/$countryIdStr' | '/countries'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/functionality'
-  id: '__root__' | '/' | '/functionality'
+  to: '/' | '/functionality' | '/countries/$countryIdStr' | '/countries'
+  id:
+    | '__root__'
+    | '/'
+    | '/functionality'
+    | '/countries/$countryIdStr'
+    | '/countries/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FunctionalityRoute: typeof FunctionalityRoute
+  CountriesCountryIdStrRoute: typeof CountriesCountryIdStrRoute
+  CountriesIndexRoute: typeof CountriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +90,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/countries/': {
+      id: '/countries/'
+      path: '/countries'
+      fullPath: '/countries'
+      preLoaderRoute: typeof CountriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/countries/$countryIdStr': {
+      id: '/countries/$countryIdStr'
+      path: '/countries/$countryIdStr'
+      fullPath: '/countries/$countryIdStr'
+      preLoaderRoute: typeof CountriesCountryIdStrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FunctionalityRoute: FunctionalityRoute,
+  CountriesCountryIdStrRoute: CountriesCountryIdStrRoute,
+  CountriesIndexRoute: CountriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

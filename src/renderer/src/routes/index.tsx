@@ -1,82 +1,7 @@
-import { Card, CardBody, Image } from "@heroui/react";
+import { Card, CardBody, Image, image } from "@heroui/react";
 import { useApi } from "@renderer/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-
-const sourceLinks = [
-	{
-		name: "Electron-Vite",
-		imageSrc: "https://electron-vite.org/logo.svg",
-		href: "https://electron-vite.org/",
-		purpose: "Electron app boilerplate with Vite",
-	},
-	{
-		name: "TanStack Router",
-		imageSrc: "https://tanstack.com/assets/splash-light-CHqMsyq8.png",
-		href: "https://tanstack.com/router/latest",
-		purpose: "Frontend routing with great type awareness",
-	},
-	{
-		name: "TanStack Query",
-		imageSrc: "https://tanstack.com/assets/splash-light-CHqMsyq8.png",
-		href: "https://tanstack.com/query/latest",
-		purpose: "API Query functionality",
-	},
-	{
-		name: "tRPC",
-		imageSrc: "https://trpc.io/img/logo.svg",
-		href: "https://trpc.io/",
-		purpose:
-			"Building API definition, API routing, and type inferrence (my favorite package!)",
-	},
-	{
-		name: "TailwindCSS",
-		imageSrc:
-			"https://tailwindcss.com/_next/static/media/tailwindcss-mark.d52e9897.svg",
-		href: "https://tailwindcss.com/",
-		purpose: "Styling your pages easily with pre-baked CSS classes",
-	},
-	{
-		name: "HeroUI",
-		imageSrc:
-			"https://raw.githubusercontent.com/heroui-inc/heroui/main/apps/docs/public/isotipo.png",
-		href: "https://www.heroui.com/",
-		purpose: "Component library",
-	},
-	{
-		name: "Zustand",
-		imageSrc:
-			"https://github.com/pmndrs/zustand/blob/main/examples/demo/src/resources/bear.png?raw=true",
-		href: "https://zustand-demo.pmnd.rs/",
-		purpose: "Front-end state with LocalStorage persisting",
-	},
-	{
-		name: "NextThemes",
-		imageSrc: "https://avatars.githubusercontent.com/u/34928425?v=4",
-		href: "https://github.com/pacocoursey/next-themes",
-		purpose: "Easy Dark/Light/System mode",
-	},
-	{
-		name: "Zod",
-		imageSrc:
-			"https://zod.dev/_next/image?url=%2Flogo%2Flogo-glow.png&w=640&q=100",
-		href: "https://zod.dev/",
-		purpose: "Schema validation for APIs",
-	},
-	{
-		name: "Phosphor",
-		imageSrc:
-			"https://github.com/phosphor-icons/homepage/blob/master/meta/phosphor-mark-tight-acid.png?raw=true",
-		href: "https://phosphoricons.com/",
-		purpose: "Icon library",
-	},
-	{
-		name: "Biome",
-		imageSrc: "https://biomejs.dev/_astro/logo-light-transparent.D-4iVN_O.svg",
-		href: "https://biomejs.dev/",
-		purpose: "Formatter & linter",
-	},
-];
 
 export const Route = createFileRoute("/")({
 	component: Index,
@@ -88,13 +13,15 @@ function Index() {
 		api.triggerOpenExternalLink.mutationOptions(),
 	);
 
+	const { data: credits } = useQuery(api.getCredits.queryOptions());
+
 	return (
 		<div>
 			<div className="text-xl font-semibold py-2">
 				Build your best Desktop App with all of the modern web tooling!
 			</div>
 			<div className="w-full grid [grid-template-columns:repeat(auto-fit,_minmax(200px,_300px))] gap-2">
-				{sourceLinks.map((link) => (
+				{credits?.map((link) => (
 					<Card
 						key={`link-${link.name}`}
 						isPressable

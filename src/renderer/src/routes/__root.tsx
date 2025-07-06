@@ -31,9 +31,12 @@ function RootComponent() {
 				<div className="flex gap-2 items-center">
 					<Link to="/" className="[&.active]:font-bold">
 						Home
-					</Link>{" "}
+					</Link>
 					<Link to="/functionality" className="[&.active]:font-bold">
 						Functionality
+					</Link>
+					<Link to="/countries" className="[&.active]:font-bold">
+						Countries
 					</Link>
 				</div>
 				<div className="items-center py-px">
@@ -46,11 +49,15 @@ function RootComponent() {
 						<Tab key="system" title={<MonitorIcon size={20} />} />
 						<Tab key="light" title={<SunIcon size={20} />} />
 					</Tabs>
-					<Button isIconOnly className="rounded-full" onPressEnd={() => {
-						openExternalLinkMutate.mutate({
-							url: "https://github.com/tomkennedy22/react-desktop-starter"
-						})
-					}}>
+					<Button
+						isIconOnly
+						className="rounded-full"
+						onPressEnd={() => {
+							openExternalLinkMutate.mutate({
+								url: "https://github.com/tomkennedy22/react-desktop-starter",
+							});
+						}}
+					>
 						<GithubLogoIcon
 							size={24}
 							weight="fill"

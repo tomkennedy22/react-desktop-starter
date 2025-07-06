@@ -23,7 +23,7 @@ export const Route = createFileRoute("/functionality")({
 
 function About() {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
-	const { count, inc } = useStore()
+	const { count, inc } = useStore();
 
 	const [pongResponses, setPongResponses] = useState<PongResponse[]>([]);
 
@@ -76,7 +76,9 @@ function About() {
 						<h3>Pong Responses:</h3>
 						<ul>
 							{pongResponses.map((response) => (
-								<li key={`pong-${response.pongUuid}`}>{response.message} - {response.pongUuid}</li>
+								<li key={`pong-${response.pongUuid}`}>
+									{response.message} - {response.pongUuid}
+								</li>
 							))}
 						</ul>
 					</div>

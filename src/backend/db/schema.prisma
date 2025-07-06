@@ -7,7 +7,7 @@ generator client {
     provider        = "prisma-client"
     output          = "./prisma-client"
     previewFeatures = ["relationJoins"]
-    moduleFormat    = "esm"
+    // moduleFormat    = "esm"
 }
 
 generator json {

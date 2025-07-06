@@ -4,7 +4,11 @@
 		"electron.vite.config.*",
 		"src/main/**/*",
 		"src/preload/**/*",
+		"src/backend/**/*.ts",
 		"src/backend/api.ts"
+	],
+	"exclude": [
+		// "src/backend/db/prisma-client/**/*",
 	],
 	"compilerOptions": {
 		"composite": true,

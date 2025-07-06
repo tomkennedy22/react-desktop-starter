@@ -22,3 +22,21 @@ export type {
 };
 
 export { SampleEnum, PrismaClient };
+
+let prismaClient: PrismaClient | undefined;
+export const getPrismaClient = () => {
+	console.log("Initializing Prisma Client...", {
+		PrismaClient,
+		Prisma,
+	});
+
+	if (prismaClient) {
+		console.log("Prisma Client already initialized", prismaClient);
+		return prismaClient;
+	}
+
+	prismaClient = new PrismaClient();
+	console.log("Prisma Client initialized", prismaClient);
+
+	return prismaClient;
+};
