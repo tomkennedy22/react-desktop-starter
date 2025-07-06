@@ -20,7 +20,7 @@ function Index() {
 			<div className="text-xl font-semibold py-2">
 				Build your best Desktop App with all of the modern web tooling!
 			</div>
-			<div className="w-full grid [grid-template-columns:repeat(auto-fit,_minmax(200px,_300px))] gap-2">
+			<div className="w-full grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-2">
 				{credits?.map((link) => (
 					<Card
 						key={`link-${link.name}`}
@@ -38,8 +38,9 @@ function Index() {
 						<CardBody>
 							<div className="flex justify-between items-center">
 								<Image
+									removeWrapper
 									key={`img-${link.name}`}
-									className="flex-1 aspect-auto object-scale-down p-2 w-24 h-24"
+									className="flex-1 aspect-auto object-scale-down p-2 h-24 w-24"
 									src={link.imageSrc}
 								/>
 								<div className="flex-2 flex flex-col text-center">

@@ -1,11 +1,19 @@
 import {
 	Button,
+	Card,
+	CardBody,
 	Divider,
 	Modal,
 	ModalBody,
 	ModalContent,
 	ModalFooter,
 	ModalHeader,
+	Table,
+	TableBody,
+	TableCell,
+	TableColumn,
+	TableHeader,
+	TableRow,
 	useDisclosure,
 } from "@heroui/react";
 import type { ApiReturnTypes } from "@renderer/ApiProvider";
@@ -31,58 +39,73 @@ function About() {
 	const pingMutation = useMutation(api.triggerPing.mutationOptions());
 
 	return (
-		<div className="p-2">
-			<p>
-				Please try pressing <code>F12</code> to open the devTool
-			</p>
-			<Divider className="my-2" />
-			<div>
-				Try this button to test Zustand storage
-				<Button
-					color="primary"
-					onPressEnd={() => {
-						console.log("increment button clicked");
-						inc();
-					}}
-				>
-					{`Count: ${count}`}
-				</Button>
-			</div>
-			<Divider className="my-2" />
-			<div className="action">
-				<Button
-					color="primary"
-					onPressEnd={async () => {
-						console.log("ping button  clicked");
-						const pingResult = await pingMutation.mutateAsync();
-						setPongResponses((prev) => [...prev, pingResult]);
-						console.log("ping result", pingResult);
-					}}
-				>
-					Send IPC
-				</Button>
-				<Button
-					color="primary"
-					onPressEnd={async () => {
-						onOpen();
-					}}
-				>
-					Open modal for fun
-				</Button>
-			</div>
-			<div>
-				{pongResponses.length > 0 && (
-					<div className="pong-responses">
-						<h3>Pong Responses:</h3>
-						<ul>
-							{pongResponses.map((response) => (
-								<li key={`pong-${response.pongUuid}`}>
-									{response.message} - {response.pongUuid}
-								</li>
-							))}
-						</ul>
-					</div>
-				)}
+		<>
+			<div className="w-full grid grid-cols-[repeat(auto-fit,minmax(40rem,1fr))] gap-2">
+				<Card>
+					<CardBody className="">
+						<p>
+							Please try pressing <code>F12</code> to open the devTool
+						</p>
+					</CardBody>
+				</Card>
+				<Card>
+					<CardBody className="">
+						Try this button to test Zustand storage
+						<Button
+							color="primary"
+							onPressEnd={() => {
+								console.log("increment button clicked");
+								inc();
+							}}
+						>
+							{`Count: ${count}`}
+						</Button>
+					</CardBody>
+				</Card>
+				<Card>
+					<CardBody className="">
+						<Button
+							color="primary"
+							onPressEnd={async () => {
+								onOpen();
+							}}
+						>
+							Open modal for fun
+						</Button>
+					</CardBody>
+				</Card>
+				<Card>
+					<CardBody className="">
+						<Button
+							color="primary"
+							onPressEnd={async () => {
+								const pingResult = await pingMutation.mutateAsync();
+								setPongResponses((prev) => [...prev, pingResult]);
+							}}
+						>
+							Test Ping API
+						</Button>
+						{pongResponses.length > 0 && (
+							<Table>
+								<TableHeader>
+									<TableColumn>Response</TableColumn>
+									<TableColumn>Time</TableColumn>
+								</TableHeader>
+								<TableBody items={pongResponses}>
+									{(pongResponse) => (
+										<TableRow
+											key={`pong-response-${pongResponse.pongUuid}`}
+											className="hover:bg-gray-100"
+										>
+											<TableCell>{pongResponse.message}</TableCell>
+											<TableCell>{pongResponse.eventTime}</TableCell>
+										</TableRow>
+									)}
+								</TableBody>
+							</Table>
+						)}
+					</CardBody>
+				</Card>
 			</div>
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange}>
 				<ModalContent>
@@ -123,6 +146,6 @@ function About() {
 					)}
 				</ModalContent>
 			</Modal>
-		</div>
+		</>
 	);
 }

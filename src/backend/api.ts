@@ -9,10 +9,15 @@ const t = initTRPC.create({ isServer: true });
 export const router = t.router({
 	triggerPing: t.procedure.mutation(() => {
 		console.log("triggerPing called");
+		const now = new Date();
 
 		const pongUuid = crypto.randomUUID();
 
-		return { message: "pong test3", pongUuid };
+		return {
+			message: "pong",
+			pongUuid,
+			eventTime: now.toLocaleTimeString(),
+		};
 	}),
 	triggerOpenExternalLink: t.procedure
 		.input(z.object({ url: z.string() }))
