@@ -23,6 +23,20 @@ export const router = t.router({
 
 			return { message: `Opened external link: ${url}` };
 		}),
+	triggerDeletePerson: t.procedure
+		.input(z.object({ personId: z.number() }))
+		.mutation(async ({ input }) => {
+			const { personId } = input;
+			const prismaClient = getPrismaClient();
+
+			await prismaClient.person.delete({
+				where: {
+					personId,
+				},
+			});
+
+			return { message: `Deleted person with ID: ${personId}` };
+		}),
 	greeting: t.procedure.input(z.object({ name: z.string() })).query((req) => {
 		const { input } = req;
 
@@ -32,10 +46,35 @@ export const router = t.router({
 	}),
 	getCountries: t.procedure.query(async () => {
 		const prismaClient = getPrismaClient();
-		const countries = await prismaClient.country.findMany();
+		const countries = await prismaClient.country.findMany({
+			include: {
+				_count: {
+					select: {
+						people: true,
+					},
+				},
+			},
+		});
 
 		return countries;
 	}),
+	getCountry: t.procedure
+		.input(z.object({ countryId: z.number() }))
+		.query(async ({ input }) => {
+			const { countryId } = input;
+			const prismaClient = getPrismaClient();
+
+			const country = await prismaClient.country.findFirstOrThrow({
+				where: {
+					countryId,
+				},
+				include: {
+					people: true,
+				},
+			});
+
+			return country;
+		}),
 	getCredits: t.procedure.query(() => {
 		return [
 			{

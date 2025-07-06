@@ -9,7 +9,8 @@ import {
 } from "@heroui/react";
 import { useApi } from "@renderer/api";
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Route as CountryPageRoute } from "./$countryIdStr";
 
 export const Route = createFileRoute("/countries/")({
 	component: CountriesPage,
@@ -31,12 +32,21 @@ function CountriesPage() {
 					<TableColumn>Num Residents</TableColumn>
 					<TableColumn>Actions</TableColumn>
 				</TableHeader>
-				<TableBody>
-					<TableRow>
-						<TableCell>Hello</TableCell>
-						<TableCell>World</TableCell>
-						<TableCell>Action</TableCell>
-					</TableRow>
+				<TableBody emptyContent={"No countries to display."}>
+					{(countries || []).map((country) => (
+						<TableRow key={`country-${country.countryId}`}>
+							<TableCell>{country.name}</TableCell>
+							<TableCell>{country._count.people}</TableCell>
+							<TableCell>
+								<Link
+									to={CountryPageRoute.to}
+									params={{ countryIdStr: country.countryId.toString() }}
+								>
+									View
+								</Link>
+							</TableCell>
+						</TableRow>
+					))}
 				</TableBody>
 			</Table>
 		</div>

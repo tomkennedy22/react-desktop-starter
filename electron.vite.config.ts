@@ -9,6 +9,11 @@ import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 export default defineConfig({
 	main: {
 		plugins: [externalizeDepsPlugin()],
+		// build: {
+		// 	rollupOptions: {
+		// 		external:  ['./src/backend/db/prisma-client/**/*']
+		// 	}
+		// }
 	},
 	preload: {
 		plugins: [externalizeDepsPlugin()],

@@ -4,12 +4,8 @@ import type {
 	Prisma as PrismaType,
 	// Enums
 	Sample,
-} from "./prisma-client/client";
-import {
-	Prisma,
-	PrismaClient,
-	Sample as SampleEnum,
-} from "./prisma-client/client";
+} from "@prisma/client";
+import { Prisma, PrismaClient, Sample as SampleEnum } from "@prisma/client";
 
 export { Prisma };
 
