@@ -1,6 +1,6 @@
 This starterpack builds a full desktop app, using all of the best web frameworks available.
 
-![image](https://github.com/user-attachments/assets/f00683f3-9f18-4796-aa78-235d506f55b1)
+<img width="1287" height="515" alt="image" src="https://github.com/user-attachments/assets/a773033c-a52e-4fa1-adb5-2ba9f5a0e002" />
 
 
 ## Project Setup
