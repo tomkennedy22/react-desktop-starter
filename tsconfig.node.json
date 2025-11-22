@@ -7,13 +7,5 @@
 		"src/backend/**/*",
 		"src/backend/db/prisma-client/**/*"
 	],
-	"exclude": [
-		// "src/backend/db/prisma-client/**/*",
-	],
-	"compilerOptions": {
-		"composite": true,
-		"types": [
-			"electron-vite/node"
-		]
-	}
+	"exclude": []
 }

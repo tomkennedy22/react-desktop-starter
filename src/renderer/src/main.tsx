@@ -1,4 +1,8 @@
-import { createRouter, RouterProvider } from "@tanstack/react-router";
+import {
+	createMemoryHistory,
+	createRouter,
+	RouterProvider,
+} from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { ApiProvider } from "./ApiProvider";
@@ -6,8 +10,13 @@ import { DefaultCatchBoundary } from "./components/DefaultCatchBoundary";
 import { NotFound } from "./components/NotFound";
 import { routeTree } from "./routeTree.gen";
 
+const memoryHistory = createMemoryHistory({
+	initialEntries: ["/"],
+});
+
 const router = createRouter({
 	routeTree,
+	history: memoryHistory,
 	defaultPreload: "intent",
 	defaultErrorComponent: DefaultCatchBoundary,
 	defaultNotFoundComponent: () => <NotFound />,

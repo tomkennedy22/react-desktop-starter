@@ -32,7 +32,7 @@ export const router = t.router({
 		.input(z.object({ personId: z.number() }))
 		.mutation(async ({ input }) => {
 			const { personId } = input;
-			const prismaClient = getPrismaClient();
+			const prismaClient = await getPrismaClient();
 
 			await prismaClient.person.delete({
 				where: {
@@ -46,7 +46,7 @@ export const router = t.router({
 		.input(z.object({ name: z.string(), countryId: z.number() }))
 		.mutation(async ({ input }) => {
 			const { name, countryId } = input;
-			const prismaClient = getPrismaClient();
+			const prismaClient = await getPrismaClient();
 
 			const person = await prismaClient.person.create({
 				data: {
@@ -65,24 +65,30 @@ export const router = t.router({
 		};
 	}),
 	getCountries: t.procedure.query(async () => {
-		const prismaClient = getPrismaClient();
-		const countries = await prismaClient.country.findMany({
-			include: {
-				_count: {
-					select: {
-						people: true,
+		const prismaClient = await getPrismaClient();
+
+		try {
+			const countries = await prismaClient.country.findMany({
+				include: {
+					_count: {
+						select: {
+							people: true,
+						},
 					},
 				},
-			},
-		});
+			});
 
-		return countries;
+			return countries;
+		} catch (error) {
+			console.error("Error fetching countries:", error);
+			throw error;
+		}
 	}),
 	getCountry: t.procedure
 		.input(z.object({ countryId: z.number() }))
 		.query(async ({ input }) => {
 			const { countryId } = input;
-			const prismaClient = getPrismaClient();
+			const prismaClient = await getPrismaClient();
 
 			const country = await prismaClient.country.findFirstOrThrow({
 				where: {

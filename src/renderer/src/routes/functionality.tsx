@@ -30,6 +30,8 @@ export const Route = createFileRoute("/functionality")({
 });
 
 function FunctionalityPage() {
+	console.log("Current path", window.location.pathname);
+
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const { count, inc } = useStore();
 

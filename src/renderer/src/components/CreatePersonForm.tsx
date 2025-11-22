@@ -42,7 +42,7 @@ export const CreatePersonFormModal = ({
 			onMount: personSchema,
 			onChange: personSchema,
 		},
-		onSubmit: async ({ value: person }) => {
+		onSubmit: async ({ value: person, formApi }) => {
 			console.log(person);
 
 			const isFormValid = await form.validateAsync("submit");
@@ -55,6 +55,8 @@ export const CreatePersonFormModal = ({
 				addToast({
 					title: `Created ${person.name}`,
 				});
+				onClose();
+				formApi.reset();
 			}
 		},
 	});
@@ -71,7 +73,10 @@ export const CreatePersonFormModal = ({
 							<Form
 								// validationErrors={form.validateAllFields()}
 								className="w-full max-w-xs"
-								onSubmit={() => form.handleSubmit()}
+								onSubmit={(e) => {
+									e.preventDefault();
+									form.handleSubmit();
+								}}
 							>
 								<form.Field
 									name="name"

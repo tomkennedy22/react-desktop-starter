@@ -1,8 +1,11 @@
-import { PrismaClient } from "./index";
+import { getPrismaClient } from "./index";
 
-const prisma = new PrismaClient();
 async function main() {
-	const usa = await prisma.country.upsert({
+	const prisma = await getPrismaClient();
+
+	console.log("Seeding database...", { prisma });
+
+	await prisma.country.upsert({
 		where: { countryId: 1 },
 		update: {},
 		create: {
@@ -30,7 +33,7 @@ async function main() {
 		},
 	});
 
-	const canada = await prisma.country.upsert({
+	await prisma.country.upsert({
 		where: { countryId: 2 },
 		update: {},
 		create: {
@@ -59,9 +62,11 @@ async function main() {
 }
 main()
 	.then(async () => {
+		const prisma = await getPrismaClient();
 		await prisma.$disconnect();
 	})
 	.catch(async (e) => {
+		const prisma = await getPrismaClient();
 		console.error(e);
 		await prisma.$disconnect();
 		process.exit(1);

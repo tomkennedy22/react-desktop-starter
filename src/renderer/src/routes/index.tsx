@@ -1,4 +1,4 @@
-import { Card, CardBody, Image, image } from "@heroui/react";
+import { Card, CardBody, Image } from "@heroui/react";
 import { useApi } from "@renderer/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -8,12 +8,16 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+	console.log("Current path", window.location.pathname);
+
 	const api = useApi();
 	const openExternalLinkMutate = useMutation(
 		api.triggerOpenExternalLink.mutationOptions(),
 	);
 
 	const { data: credits } = useQuery(api.getCredits.queryOptions());
+
+	console.log("credits:", { credits, api, getCredits: api.getCredits });
 
 	return (
 		<div>

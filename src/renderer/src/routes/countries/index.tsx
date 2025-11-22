@@ -17,8 +17,12 @@ export const Route = createFileRoute("/countries/")({
 });
 
 function CountriesPage() {
+	console.log("Current path", window.location.pathname);
+
 	const api = useApi();
 	const { data: countries } = useQuery(api.getCountries.queryOptions());
+
+	console.log("Countries data:", { countries, api });
 
 	return (
 		<div>

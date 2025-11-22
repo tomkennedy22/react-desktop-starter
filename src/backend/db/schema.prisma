@@ -1,13 +1,10 @@
 datasource db {
     provider = "sqlite"
-    url      = "file:./databases/database.db"
 }
 
 generator client {
-    provider        = "prisma-client-js"
-    // output          = "./prisma-client"
-    previewFeatures = ["relationJoins"]
-    moduleFormat    = "esm"
+    provider = "prisma-client"
+    output   = "./generated/prisma"
 }
 
 generator json {

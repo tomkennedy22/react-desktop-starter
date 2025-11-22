@@ -1,3 +1,3 @@
-import { themeColors } from "./utils";
+import type { themeColors } from "./utils";
 
-export type ThemeColors = typeof themeColors[number];
+export type ThemeColors = (typeof themeColors)[number];

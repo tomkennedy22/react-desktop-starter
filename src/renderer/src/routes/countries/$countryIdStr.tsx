@@ -20,6 +20,8 @@ export const Route = createFileRoute("/countries/$countryIdStr")({
 });
 
 function RouteComponent() {
+	console.log("Current path", window.location.pathname);
+
 	const queryClient = useQueryClient();
 	const api = useApi();
 

@@ -17,6 +17,8 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+	console.log("Current path", window.location.pathname);
+
 	const { resolvedTheme, theme, setTheme } = useTheme();
 	const api = useApi();
 	const openExternalLinkMutate = useMutation(

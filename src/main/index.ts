@@ -1,8 +1,8 @@
 import { join } from "node:path";
-import { electronApp, is, optimizer } from "@electron-toolkit/utils";
+import { electronApp, optimizer } from "@electron-toolkit/utils";
 import { app, BrowserWindow } from "electron";
 import { createIPCHandler } from "electron-trpc-experimental/main";
-import icon from "../../resources/icon.png?asset";
+import icon from "../../resources/app-icon.png?asset";
 import { router } from "../backend/api";
 
 function createWindow(): void {
@@ -22,10 +22,17 @@ function createWindow(): void {
 		mainWindow.show();
 	});
 
+	console.log("Not sure which path to go to?", {
+		isPackaged: app.isPackaged,
+		appURL: app.getAppPath(),
+		envURL: process.env["ELECTRON_RENDERER_URL"],
+	});
+
 	if (!app.isPackaged && process.env["ELECTRON_RENDERER_URL"]) {
 		mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
 	} else {
 		mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
+		// mainWindow.loadFile("/");
 	}
 
 	createIPCHandler({ router, windows: [mainWindow] });

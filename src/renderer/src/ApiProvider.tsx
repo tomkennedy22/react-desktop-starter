@@ -5,7 +5,7 @@ import { createTRPCReact } from "@trpc/react-query";
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { ipcLink } from "electron-trpc-experimental/renderer";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import type { AppRouter } from "src/backend/api";
+import type { AppRouter } from "../../backend/api";
 import { queryClient, TRPCProvider, trpcClient } from "./api";
 import { themeColors } from "./utils";
 
@@ -13,7 +13,9 @@ export const client = createTRPCProxyClient({
 	links: [ipcLink()],
 });
 
-export const trpcReact = createTRPCReact<AppRouter>();
+type TRPCReact = ReturnType<typeof createTRPCReact<AppRouter>>;
+
+export const trpcReact: TRPCReact = createTRPCReact<AppRouter>();
 
 export type ApiInputTypes = inferRouterInputs<AppRouter>;
 export type ApiReturnTypes = inferRouterOutputs<AppRouter>;
