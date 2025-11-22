@@ -2,8 +2,6 @@ import { Button } from "@heroui/react";
 import { Link } from "@tanstack/react-router";
 
 export function NotFound({ children }: { children?: React.ReactNode }) {
-	console.log("Current path", window.location.pathname);
-
 	return (
 		<div className="space-y-2 p-2">
 			<div className="text-gray-600 dark:text-gray-400">

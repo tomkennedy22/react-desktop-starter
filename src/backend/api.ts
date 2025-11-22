@@ -8,7 +8,6 @@ const t = initTRPC.create({ isServer: true });
 
 export const router = t.router({
 	triggerPing: t.procedure.mutation(() => {
-		console.log("triggerPing called");
 		const now = new Date();
 
 		const pongUuid = crypto.randomUUID();
@@ -117,13 +116,13 @@ export const router = t.router({
 			},
 			{
 				name: "TanStack Router",
-				imageSrc: "https://tanstack.com/assets/splash-light-CHqMsyq8.png",
+				imageSrc: "https://tanstack.com/images/logos/logo-color-600.png",
 				href: "https://tanstack.com/router/latest",
 				purpose: "Frontend routing with great type awareness",
 			},
 			{
 				name: "TanStack Query",
-				imageSrc: "https://tanstack.com/assets/splash-light-CHqMsyq8.png",
+				imageSrc: "https://tanstack.com/images/logos/logo-color-600.png",
 				href: "https://tanstack.com/query/latest",
 				purpose: "API Query functionality",
 			},
@@ -169,10 +168,9 @@ export const router = t.router({
 				purpose: "Schema validation for APIs",
 			},
 			{
-				name: "Phosphor",
-				imageSrc:
-					"https://github.com/phosphor-icons/homepage/blob/master/meta/phosphor-mark-tight-acid.png?raw=true",
-				href: "https://phosphoricons.com/",
+				name: "Lucide",
+				imageSrc: "https://lucide.dev/logo.light.svg",
+				href: "https://lucide.dev/",
 				purpose: "Icon library",
 			},
 			{

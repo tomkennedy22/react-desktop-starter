@@ -6,11 +6,6 @@ import icon from "../../resources/icon.png?asset";
 import { router } from "../backend/api";
 
 function createWindow(): void {
-	console.log("Electron main process versions:", {
-		node: process.versions.node,
-		electron: process.versions.electron,
-		modules: process.versions.modules, // this is the ABI number (133, 127, etc.)
-	});
 	const mainWindow = new BrowserWindow({
 		width: 1020,
 		height: 800,
@@ -25,12 +20,6 @@ function createWindow(): void {
 
 	mainWindow.on("ready-to-show", () => {
 		mainWindow.show();
-	});
-
-	console.log("Not sure which path to go to?", {
-		isPackaged: app.isPackaged,
-		appURL: app.getAppPath(),
-		envURL: process.env["ELECTRON_RENDERER_URL"],
 	});
 
 	if (!app.isPackaged && process.env["ELECTRON_RENDERER_URL"]) {

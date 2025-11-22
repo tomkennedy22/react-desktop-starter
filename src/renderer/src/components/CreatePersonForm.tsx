@@ -43,8 +43,6 @@ export const CreatePersonFormModal = ({
 			onChange: personSchema,
 		},
 		onSubmit: async ({ value: person, formApi }) => {
-			console.log(person);
-
 			const isFormValid = await form.validateAsync("submit");
 
 			if (isFormValid) {
@@ -112,7 +110,6 @@ export const CreatePersonFormModal = ({
 								</form.Field>
 								<form.Subscribe
 									selector={(state) => {
-										console.log("Form state:", state);
 										return [state.canSubmit, state.isSubmitting];
 									}}
 								>

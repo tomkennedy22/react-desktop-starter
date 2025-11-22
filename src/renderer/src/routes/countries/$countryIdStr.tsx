@@ -9,19 +9,17 @@ import {
 	TableRow,
 	useDisclosure,
 } from "@heroui/react";
-import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { useApi } from "@renderer/api";
 import { CreatePersonFormModal } from "@renderer/components/CreatePersonForm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { Plus, Trash } from "lucide-react";
 
 export const Route = createFileRoute("/countries/$countryIdStr")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	console.log("Current path", window.location.pathname);
-
 	const queryClient = useQueryClient();
 	const api = useApi();
 
@@ -83,7 +81,7 @@ function RouteComponent() {
 											});
 										}}
 									>
-										<TrashIcon size={16} />
+										<Trash size={16} />
 									</Button>
 								</TableCell>
 							</TableRow>
@@ -95,7 +93,7 @@ function RouteComponent() {
 								<TableCell>{null}</TableCell>
 								<TableCell>
 									<Button isIconOnly onPressEnd={onOpen}>
-										<PlusIcon size={16} />
+										<Plus size={16} />
 									</Button>
 								</TableCell>
 							</TableRow>,

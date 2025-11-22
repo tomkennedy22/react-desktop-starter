@@ -28,7 +28,6 @@ export type {
 export { SampleEnum, PrismaClient };
 
 const resourcesPath = process.resourcesPath;
-console.log("resourcesPath:", { resourcesPath });
 const templateDatabasePath = path.join(resourcesPath, "template.db");
 
 const userDataDir = app.getPath("userData");
@@ -44,25 +43,12 @@ export const getPrismaClient = async ({ dbId }: { dbId: string }) => {
 	const connectionString = `file:${databasePath}`;
 
 	if (prisma) {
-		console.log("Found existing PrismaClient instance, now returning");
 		return prisma;
 	}
 
-	console.log("Checking if database file exists at path:", {
-		databasePath,
-		connectionString,
-		dbId,
-		userDataDir,
-		resourcesPath,
-		templateDatabasePath,
-		appPath,
-	});
-
 	try {
 		await fs.access(databasePath);
-		console.log("File exists!");
 	} catch {
-		console.log("File does NOT exist.");
 		// copy template database to user database
 		await fs.mkdir(path.dirname(databasePath), { recursive: true });
 		await fs.copyFile(templateDatabasePath, databasePath);

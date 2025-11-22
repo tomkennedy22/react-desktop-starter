@@ -8,16 +8,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-	console.log("Current path", window.location.pathname);
-
 	const api = useApi();
 	const openExternalLinkMutate = useMutation(
 		api.triggerOpenExternalLink.mutationOptions(),
 	);
 
 	const { data: credits } = useQuery(api.getCredits.queryOptions());
-
-	console.log("credits:", { credits, api, getCredits: api.getCredits });
 
 	return (
 		<div>
@@ -44,7 +40,7 @@ function Index() {
 								<Image
 									removeWrapper
 									key={`img-${link.name}`}
-									className="flex-1 aspect-auto object-scale-down p-2 h-24 w-24"
+									className="flex-1 aspect-auto object-contain p-2 h-24 w-24"
 									src={link.imageSrc}
 								/>
 								<div className="flex-2 flex flex-col text-center">

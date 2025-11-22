@@ -1,31 +1,23 @@
-import { Button, Divider, Tab, Tabs } from "@heroui/react";
-import {
-	GithubLogoIcon,
-	MonitorIcon,
-	MoonIcon,
-	SunIcon,
-} from "@phosphor-icons/react";
+import { Button, Divider, Image, Tab, Tabs } from "@heroui/react";
 import { useApi } from "@renderer/api";
 import type { ThemeColors } from "@renderer/types";
 import { useMutation } from "@tanstack/react-query";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import GithubSvg from "../../../../resources/github-mark.svg";
 
 export const Route = createRootRoute({
 	component: RootComponent,
 });
 
 function RootComponent() {
-	console.log("Current path", window.location.pathname);
-
 	const { resolvedTheme, theme, setTheme } = useTheme();
 	const api = useApi();
 	const openExternalLinkMutate = useMutation(
 		api.triggerOpenExternalLink.mutationOptions(),
 	);
-
-	console.log("Current theme:", { theme, resolvedTheme });
 
 	return (
 		<div className={resolvedTheme}>
@@ -41,29 +33,29 @@ function RootComponent() {
 						Countries
 					</Link>
 				</div>
-				<div className="items-center py-px">
+				<div className="items-center py-px flex">
 					<Tabs
 						className="p-2"
 						selectedKey={theme}
 						onSelectionChange={(val) => setTheme(val as ThemeColors)}
 					>
-						<Tab key="dark" title={<MoonIcon size={20} />} />
-						<Tab key="system" title={<MonitorIcon size={20} />} />
-						<Tab key="light" title={<SunIcon size={20} />} />
+						<Tab key="dark" title={<Moon size={20} />} />
+						<Tab key="system" title={<Monitor size={20} />} />
+						<Tab key="light" title={<Sun size={20} />} />
 					</Tabs>
 					<Button
 						isIconOnly
-						className="rounded-full"
+						className="rounded-lg p-1 bg-white"
 						onPressEnd={() => {
 							openExternalLinkMutate.mutate({
 								url: "https://github.com/tomkennedy22/react-desktop-starter",
 							});
 						}}
 					>
-						<GithubLogoIcon
-							size={24}
-							weight="fill"
-							className="text-background"
+						<Image
+							removeWrapper
+							src={GithubSvg}
+							className="text-foreground h-full w-full object-scale-down"
 						/>
 					</Button>
 				</div>
