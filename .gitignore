@@ -10,3 +10,4 @@ src/backend/db/prisma-client
 src/backend/db/generated
 src/backend/db/databases
 notneeded.prisma
+packed

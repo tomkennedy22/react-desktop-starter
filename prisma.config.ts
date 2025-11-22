@@ -6,6 +6,6 @@ export default defineConfig({
     path: 'src/backend/db/migrations',
   },
   datasource: {
-    url: 'file:./src/backend/db/databases/template.db',
+    url: 'file:./node_modules/electron/dist/Electron.app/Contents/Resources/template.db',
   },
 })

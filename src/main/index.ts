@@ -2,10 +2,15 @@ import { join } from "node:path";
 import { electronApp, optimizer } from "@electron-toolkit/utils";
 import { app, BrowserWindow } from "electron";
 import { createIPCHandler } from "electron-trpc-experimental/main";
-import icon from "../../resources/app-icon.png?asset";
+import icon from "../../resources/icon.png?asset";
 import { router } from "../backend/api";
 
 function createWindow(): void {
+	console.log("Electron main process versions:", {
+		node: process.versions.node,
+		electron: process.versions.electron,
+		modules: process.versions.modules, // this is the ABI number (133, 127, etc.)
+	});
 	const mainWindow = new BrowserWindow({
 		width: 1020,
 		height: 800,

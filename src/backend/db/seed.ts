@@ -1,11 +1,7 @@
-import { getPrismaClient } from "./index";
+import type { PrismaClient } from "./index";
 
-async function main() {
-	const prisma = await getPrismaClient();
-
-	console.log("Seeding database...", { prisma });
-
-	await prisma.country.upsert({
+export const seedDb = async ({ db }: { db: PrismaClient }) => {
+	await db.country.upsert({
 		where: { countryId: 1 },
 		update: {},
 		create: {
@@ -33,7 +29,7 @@ async function main() {
 		},
 	});
 
-	await prisma.country.upsert({
+	await db.country.upsert({
 		where: { countryId: 2 },
 		update: {},
 		create: {
@@ -55,19 +51,6 @@ async function main() {
 		},
 	});
 
-	const countries = await prisma.country.findMany();
-	const people = await prisma.person.findMany();
-
-	console.log("Prisma seed complete", { countries, people });
-}
-main()
-	.then(async () => {
-		const prisma = await getPrismaClient();
-		await prisma.$disconnect();
-	})
-	.catch(async (e) => {
-		const prisma = await getPrismaClient();
-		console.error(e);
-		await prisma.$disconnect();
-		process.exit(1);
-	});
+	const countries = await db.country.findMany();
+	const people = await db.person.findMany();
+};

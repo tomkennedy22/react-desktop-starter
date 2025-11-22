@@ -1,6 +1,7 @@
 import * as fs from "node:fs/promises";
 import path from "node:path";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { app } from "electron";
 import type {
 	Country,
 	Person,
@@ -13,6 +14,7 @@ import {
 	PrismaClient,
 	Sample as SampleEnum,
 } from "./generated/prisma/client";
+import { seedDb } from "./seed";
 
 export { Prisma };
 export type {
@@ -25,32 +27,51 @@ export type {
 
 export { SampleEnum, PrismaClient };
 
-const databaseFolderPath = "./src/backend/db/databases";
-const templateDatabasePath = `${databaseFolderPath}/template.db`;
+const resourcesPath = process.resourcesPath;
+console.log("resourcesPath:", { resourcesPath });
+const templateDatabasePath = path.join(resourcesPath, "template.db");
+
+const userDataDir = app.getPath("userData");
+const appPath = app.getAppPath();
 
 let prisma: PrismaClient | undefined;
-export const getPrismaClient = async () => {
-	const dbId = 1;
-	const userDatabasePath = `${databaseFolderPath}/user-db-${dbId}.db`;
-	const connectionString = `file:${userDatabasePath}`;
+export const getPrismaClient = async ({ dbId }: { dbId: string }) => {
+	let databasePath = templateDatabasePath;
+	if (dbId) {
+		databasePath = path.join(userDataDir, `user-db-${dbId}.db`);
+	}
+
+	const connectionString = `file:${databasePath}`;
 
 	if (prisma) {
 		console.log("Found existing PrismaClient instance, now returning");
 		return prisma;
 	}
 
+	console.log("Checking if database file exists at path:", {
+		databasePath,
+		connectionString,
+		dbId,
+		userDataDir,
+		resourcesPath,
+		templateDatabasePath,
+		appPath,
+	});
+
 	try {
-		await fs.access(userDatabasePath);
+		await fs.access(databasePath);
 		console.log("File exists!");
 	} catch {
 		console.log("File does NOT exist.");
 		// copy template database to user database
-		await fs.mkdir(path.dirname(userDatabasePath), { recursive: true });
-		await fs.copyFile(templateDatabasePath, userDatabasePath);
+		await fs.mkdir(path.dirname(databasePath), { recursive: true });
+		await fs.copyFile(templateDatabasePath, databasePath);
 	}
 
 	const adapter = new PrismaBetterSqlite3({ url: connectionString });
 	prisma = new PrismaClient({ adapter });
+
+	await seedDb({ db: prisma });
 
 	return prisma;
 };

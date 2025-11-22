@@ -1,4 +1,4 @@
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import { shell } from "electron";
 import z from "zod";
 
@@ -32,7 +32,7 @@ export const router = t.router({
 		.input(z.object({ personId: z.number() }))
 		.mutation(async ({ input }) => {
 			const { personId } = input;
-			const prismaClient = await getPrismaClient();
+			const prismaClient = await getPrismaClient({ dbId: "1" });
 
 			await prismaClient.person.delete({
 				where: {
@@ -46,7 +46,7 @@ export const router = t.router({
 		.input(z.object({ name: z.string(), countryId: z.number() }))
 		.mutation(async ({ input }) => {
 			const { name, countryId } = input;
-			const prismaClient = await getPrismaClient();
+			const prismaClient = await getPrismaClient({ dbId: "1" });
 
 			const person = await prismaClient.person.create({
 				data: {
@@ -65,7 +65,7 @@ export const router = t.router({
 		};
 	}),
 	getCountries: t.procedure.query(async () => {
-		const prismaClient = await getPrismaClient();
+		const prismaClient = await getPrismaClient({ dbId: "1" });
 
 		try {
 			const countries = await prismaClient.country.findMany({
@@ -81,14 +81,20 @@ export const router = t.router({
 			return countries;
 		} catch (error) {
 			console.error("Error fetching countries:", error);
-			throw error;
+			throw new TRPCError({
+				code: "INTERNAL_SERVER_ERROR",
+				message:
+					"An unexpected error occurred trying to fetch countries, please try again later." +
+					error,
+				cause: error,
+			});
 		}
 	}),
 	getCountry: t.procedure
 		.input(z.object({ countryId: z.number() }))
 		.query(async ({ input }) => {
 			const { countryId } = input;
-			const prismaClient = await getPrismaClient();
+			const prismaClient = await getPrismaClient({ dbId: "1" });
 
 			const country = await prismaClient.country.findFirstOrThrow({
 				where: {
