@@ -7,8 +7,8 @@ import { router } from "../backend/api";
 
 function createWindow(): void {
 	const mainWindow = new BrowserWindow({
-		width: 1020,
-		height: 800,
+		width: 1400,
+		height: 1000,
 		show: false,
 		autoHideMenuBar: true,
 		...(process.platform === "linux" ? { icon } : {}),
