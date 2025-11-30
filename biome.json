@@ -13,7 +13,8 @@
 			"src/renderer/src/**/*.tsx",
 			"src/preload/*.d.ts",
 			"src/renderer/index.html",
-			"src/**"
+			"src/**",
+			"*.ts"
 		]
 	},
 	"formatter": {

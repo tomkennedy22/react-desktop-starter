@@ -5,7 +5,8 @@
 		"src/main/**/*",
 		"src/preload/**/*",
 		"src/backend/**/*",
-		"src/backend/db/prisma-client/**/*"
+		"src/backend/db/generated/prisma/**/*",
+		"node_modules/**/*"
 	],
 	"exclude": []
 }
