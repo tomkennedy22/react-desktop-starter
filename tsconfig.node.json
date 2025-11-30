@@ -2,11 +2,10 @@
 	"extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
 	"include": [
 		"electron.vite.config.*",
-		"src/main/**/*",
+		"src/desktop/**/*",
 		"src/preload/**/*",
 		"src/backend/**/*",
-		"src/backend/db/generated/prisma/**/*",
-		"node_modules/**/*"
+		"src/backend/db/generated/prisma/**/*"
 	],
 	"exclude": []
 }

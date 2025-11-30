@@ -1,3 +1,5 @@
+import { useApi } from "@frontend/api";
+import { CreatePersonFormModal } from "@frontend/components/CreatePersonForm";
 import {
 	addToast,
 	Button,
@@ -9,8 +11,6 @@ import {
 	TableRow,
 	useDisclosure,
 } from "@heroui/react";
-import { useApi } from "@renderer/api";
-import { CreatePersonFormModal } from "@renderer/components/CreatePersonForm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Trash } from "lucide-react";

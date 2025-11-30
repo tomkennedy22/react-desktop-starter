@@ -1,3 +1,4 @@
+import { useApi } from "@frontend/api";
 import {
 	Tab,
 	Table,
@@ -7,7 +8,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@heroui/react";
-import { useApi } from "@renderer/api";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Route as CountryPageRoute } from "./$countryIdStr";

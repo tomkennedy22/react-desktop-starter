@@ -7,22 +7,39 @@ import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 export default defineConfig({
 	main: {
 		plugins: [externalizeDepsPlugin()],
+		build: {
+			lib: {
+				entry: resolve(__dirname, "src/desktop/index.ts"),
+			},
+		},
 	},
 	preload: {
 		plugins: [externalizeDepsPlugin()],
+		build: {
+			lib: {
+				entry: resolve(__dirname, "src/preload/index.ts"),
+			},
+		},
 	},
 	renderer: {
+		root: resolve(__dirname, "src/frontend"),
+		build: {
+			outDir: resolve(__dirname, "out/frontend"),
+			rollupOptions: {
+				input: "src/frontend/index.html",
+			},
+		},
 		resolve: {
 			alias: {
-				"@renderer": resolve("src/renderer/src"),
+				"@frontend": resolve("src/frontend/src"),
 			},
 		},
 		plugins: [
 			tanstackRouter({
 				target: "react",
 				autoCodeSplitting: true,
-				generatedRouteTree: "src/renderer/src/routeTree.gen.ts",
-				routesDirectory: "src/renderer/src/routes",
+				// generatedRouteTree: "src/frontend/src/routeTree.gen.ts",
+				routesDirectory: "src/routes",
 			}),
 			react(),
 			tailwindcss(),

@@ -6,9 +6,6 @@
 	"author": "https://github.com/tomkennedy22",
 	"homepage": "https://github.com/tomkennedy22/react-desktop-starter",
 	"scripts": {
-		"typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
-		"typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
-		"typecheck": "npm run typecheck:node && npm run typecheck:web",
 		"start": "electron-vite preview",
 		"dev": "electron-vite dev -w",
 		"build": "npm run typecheck && electron-vite build",

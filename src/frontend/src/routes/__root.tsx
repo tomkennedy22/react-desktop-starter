@@ -1,9 +1,9 @@
+import { useApi } from "@frontend/api";
 import { Button, Divider, Image, Tab, Tabs } from "@heroui/react";
-import { useApi } from "@renderer/api";
-import type { ThemeColors } from "@renderer/types";
 import { useMutation } from "@tanstack/react-query";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import type { ThemeColors } from "@types";
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import GithubSvg from "../../../../resources/github-mark.svg";

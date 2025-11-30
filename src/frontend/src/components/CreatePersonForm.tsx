@@ -1,3 +1,4 @@
+import { useApi } from "@frontend/api";
 import {
 	addToast,
 	Button,
@@ -8,7 +9,6 @@ import {
 	ModalContent,
 	ModalHeader,
 } from "@heroui/react";
-import { useApi } from "@renderer/api";
 import { useForm } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import z from "zod";

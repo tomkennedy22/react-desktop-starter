@@ -9,10 +9,10 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"src/backend/api.ts",
-			"src/main/*.ts",
-			"src/renderer/src/**/*.tsx",
+			"src/desktop/*.ts",
+			"src/frontend/src/**/*.tsx",
 			"src/preload/*.d.ts",
-			"src/renderer/index.html",
+			"src/frontend/index.html",
 			"src/**",
 			"*.ts"
 		]

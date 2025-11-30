@@ -1,3 +1,6 @@
+import type { ApiReturnTypes } from "@frontend/ApiProvider";
+import { useApi } from "@frontend/api";
+import { useStore } from "@frontend/state";
 import {
 	Button,
 	Card,
@@ -16,9 +19,6 @@ import {
 	TableRow,
 	useDisclosure,
 } from "@heroui/react";
-import type { ApiReturnTypes } from "@renderer/ApiProvider";
-import { useApi } from "@renderer/api";
-import { useStore } from "@renderer/state";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";

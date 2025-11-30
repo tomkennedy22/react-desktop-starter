@@ -1,5 +1,5 @@
+import { useApi } from "@frontend/api";
 import { Card, CardBody, Image } from "@heroui/react";
-import { useApi } from "@renderer/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
