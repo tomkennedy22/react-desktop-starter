@@ -31,7 +31,7 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
-				"@frontend": resolve("src/frontend/src"),
+				"@frontend": resolve("src/frontend"),
 			},
 		},
 		plugins: [
@@ -39,7 +39,7 @@ export default defineConfig({
 				target: "react",
 				autoCodeSplitting: true,
 				// generatedRouteTree: "src/frontend/src/routeTree.gen.ts",
-				routesDirectory: "src/routes",
+				// routesDirectory: "src/routes",
 			}),
 			react(),
 			tailwindcss(),

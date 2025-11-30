@@ -5,9 +5,11 @@
 	"main": "./out/main/index.js",
 	"author": "https://github.com/tomkennedy22",
 	"homepage": "https://github.com/tomkennedy22/react-desktop-starter",
+	"type": "module",
 	"scripts": {
 		"start": "electron-vite preview",
-		"dev": "electron-vite dev -w",
+		"dev-desktop": "electron-vite dev -w",
+		"dev-web": "vite dev",
 		"build": "npm run typecheck && electron-vite build",
 		"postinstall": "electron-builder install-app-deps",
 		"build:unpack": "npm run build && electron-builder --dir",

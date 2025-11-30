@@ -10,7 +10,7 @@
 		"includes": [
 			"src/backend/api.ts",
 			"src/desktop/*.ts",
-			"src/frontend/src/**/*.tsx",
+			"src/frontend/**/*",
 			"src/preload/*.d.ts",
 			"src/frontend/index.html",
 			"src/**",

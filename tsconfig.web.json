@@ -1,11 +1,20 @@
 {
 	"extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
 	"include": [
-		"src/frontend/src/env.d.ts",
-		"src/frontend/src/**/*",
+		"src/frontend/env.d.ts",
+		"src/frontend/**/*",
 		"src/backend/api.ts",
-		"src/frontend/src/**/*.tsx",
+		"src/frontend/**/*.tsx",
 		"src/preload/*.d.ts",
-		"node_modules/@tanstack/"
+		"node_modules/@tanstack/",
+		"src/frontend/components",
+		"src/frontend/renderer",
+		"src/frontend/routes",
+		"src/frontend/api.ts",
+		"src/frontend/ApiProvider.tsx",
+		"src/frontend/hero.ts",
+		"src/frontend/main.tsx",
+		"src/frontend/routeTree.gen.ts",
+		"src/frontend/state.ts"
 	]
 }

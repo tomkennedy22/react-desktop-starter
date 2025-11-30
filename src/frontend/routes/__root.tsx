@@ -6,7 +6,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { ThemeColors } from "@types";
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import GithubSvg from "../../../../resources/github-mark.svg";
+import GithubSvg from "../../../resources/github-mark.svg";
 
 export const Route = createRootRoute({
 	component: RootComponent,

@@ -5,7 +5,7 @@ import {
 	createTRPCOptionsProxy,
 } from "@trpc/tanstack-react-query";
 import { ipcLink } from "electron-trpc-experimental/renderer";
-import type { AppRouter } from "../../backend/api";
+import type { AppRouter } from "../backend/api";
 
 type TRPCReact = ReturnType<typeof createTRPCReact<AppRouter>>;
 
